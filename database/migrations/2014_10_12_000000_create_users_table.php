@@ -34,3 +34,7 @@ return new class extends Migration
         Schema::dropIfExists('users');
     }
 };
+
+//php artisan migrate (dentro do container= cria as tabelas do BD)
+//php artisan make:seeder UsersSeeder (cria uma seeder. Neste caso para criar um usuários de teste)
+//php artisan db:seed (cria o usuário dentro da tabela)
