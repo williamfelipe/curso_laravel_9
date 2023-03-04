@@ -1,0 +1,18 @@
+Comando para acessar o bash dentro do Container
+docker-compose exec app bash
+
+Criar Controller
+php artisan make:controller UserController
+
+Comando para deletar as tabelas existentes(dropIfExists) e recria as tabelas
+php artisan migrate:refresh
+
+Comando para deletar todas tabelas e criar as tabelas definidas no migrate
+Ideal para ambiente DEV
+php artisan migrate:fresh
+
+Seeders(Cria dados ficticios para o BD)
+php artisan db:seed
+
+
+https://www.youtube.com/watch?v=8MY0cxdH0OY&list=PLVSNL1PHDWvS1e1aeoJV7VvaDZ9m67YPU&index=12
