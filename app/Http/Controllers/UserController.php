@@ -36,8 +36,9 @@ class UserController extends Controller
 
     public function store(StoreUpdateUserFormRequest $request)
     {
-        
+       
         $data = $request->all();
+        dd($data);
         $data['password'] = bcrypt($request->password);
         $user = User::create($data);
         return redirect()->route('users.index');
