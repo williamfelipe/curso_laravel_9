@@ -23,8 +23,8 @@ class StoreUpdateUserFormRequest extends FormRequest
      */
     public function rules()
     {
-        //dd($this->user);
-
+        //dd($this->id);
+        //dd($this->segment(2)); //O 2 representa 2° parametro da URL
         $id = $this->id ?? '';
 
         $rules = [
@@ -32,7 +32,7 @@ class StoreUpdateUserFormRequest extends FormRequest
             'email'=> [
                 'required',
                 'email',
-                'unique:users,',
+                "unique:users,email,{$id},id",
             ],
             'password'=>[
                 'required',

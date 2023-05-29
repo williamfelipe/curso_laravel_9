@@ -8,7 +8,7 @@
 </h1>
 <form action="{{route('users.index')}}" method="get">
     <input type="text" name="search" placeholder="Pesquisar">
-    <button type="button">Pesquisar</button>
+    <button>Pesquisar</button>
 </form>
 
 <ul>
@@ -18,10 +18,10 @@
         | <a href="{{route('users.show',$user->id)}}">Detalhes</a> 
         | <a href="{{route('users.edit',$user->id)}}">Editar</a>
         | <form action="{{route('users.delete',$user->id)}}" method="POST">
-        @method('DELETE')
-        @csrf
-        <button type="submit">Excluir</button>
-        </form>
+            @method('DELETE')
+            @csrf
+            <button type="submit">Excluir</button>
+          </form>
     </li>
 @endforeach
 </ul>

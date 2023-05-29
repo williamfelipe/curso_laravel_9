@@ -8,9 +8,17 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index(){
-        //dd('UserController@index');
-        $users = User::get();
+    protected $model;
+    public function __construct(User $user)
+    {
+        $this->model = $user;
+    }
+
+    public function index(Request $request){
+        
+        //$users = User::where('name','LIKE',"%{$request->name}%")->toSql();
+        //$users = User::where('name','LIKE',"%{$request->search}%")->get();
+        $users = $this->model->getUsers(search: $request->search ?? '');
         //dd($users);
         return view('users.index',compact('users'));
     }
@@ -18,7 +26,7 @@ class UserController extends Controller
     public function show($id){
         
         //$user = User::where('id',$id)->first();
-        if(!$user  = User::find($id)){
+        if(!$user  = $this->model->find($id)){
         //return redirect()->back();
             return redirect()->route('users.index');
         }else{
@@ -38,11 +46,12 @@ class UserController extends Controller
     {
        
         $data = $request->all();
-        dd($data);
+        
         $data['password'] = bcrypt($request->password);
-        dd($data);
-        $user = User::create($data);
+        
+        $user = $this->model->create($data);
         return redirect()->route('users.index');
+        //dd($data);
         //return redirect()->route('users.show', $user->id);
         //Jeitos diferentes de se fazer
         //dd($request->all());
@@ -64,17 +73,18 @@ class UserController extends Controller
     }
 
     public function edit($id){
-        if(!$user  = User::find($id)){
+        if(!$user  = $this->model->find($id)){
             return redirect()->route('users.index');
         }else{
             return view('users.edit',compact('user'));
         }
     }
 
-    public function update(Request $request, $id){
-        if(!$user  = User::find($id)){
+    public function update(StoreUpdateUserFormRequest $request, $id){
+        if(!$user  = $this->model->find($id)){
             return redirect()->route('users.index');
         }else{
+    
             /*
             $user->name = $request->name;
             $user->save();
@@ -89,9 +99,10 @@ class UserController extends Controller
             //dd($request->all());
         }
     }
+
     public function delete($id)
     {
-        if(!$user  = User::find($id)){
+        if(!$user  = $this->model->find($id)){
             return redirect()->route('users.index');
         }else{
             $user->delete();
